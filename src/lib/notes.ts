@@ -22,3 +22,14 @@ export function kindLabel(kind: Kind): string {
 export function oldPathToParam(oldPath: string): string {
   return oldPath.replace(/^\/+|\/+$/g, '');
 }
+
+export function excerpt(text: string): string {
+  const cleaned = text
+    .replace(/!\[[^\]]*]\([^)]*\)/g, '')
+    .replace(/\[([^\]]+)]\([^)]*\)/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/[`*_>#|<>]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return cleaned.length >= 18 ? cleaned : '';
+}

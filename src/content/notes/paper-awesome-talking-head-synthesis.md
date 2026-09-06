@@ -1,6 +1,6 @@
 ---
 title: "超赞的数字人生成知识库  Awesome-Talking-Head-Synthesis"
-description: "Gihub：<https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis"
+description: "说话头合成的论文、代码和资料索引，持续更新。"
 date: 2023-12-31
 updated: 2024-01-30
 kind: paper

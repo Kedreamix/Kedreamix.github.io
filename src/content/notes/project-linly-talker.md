@@ -1,6 +1,6 @@
 ---
 title: "数字人对话系统 - Linly-Talker —— “数字人交互，与虚拟的自己互动”"
-description: "- 令人兴奋的消息！我现在已经将强大的GeminiPro和Qwen大模型融入到我们的对话场景中。用户现在可以在对话中上传任何图片，为我们的互动增添了全新的层面。 - 更新了FastAPI的部署调用方法。 - 更新了微软TTS的高级设置选项，增加声音种类的多样性，以及加入视频字幕加强可视化。 - 更新了GPT多轮对话系统"
+description: "把大模型和说话头接到一起：上传一张脸，就能语音对话。Linly-Talker 的系统说明与更新记录。"
 date: 2024-01-19
 updated: 2024-02-04
 kind: project
@@ -32,7 +32,7 @@ Linly-Talker是一个将大型语言模型与视觉模型相结合的智能AI系
 
 ![The system architecture of multimodal human–computer interaction.](https://picx.zhimg.com/80/v2-b38722d9d71153dec12acbb9e020a5b4.png)
 
-## TO## TO DO LIST
+## TO DO LIST
 
 - [x] 基本完成对话系统流程，能够`语音对话`
 - [x] 加入了LLM大模型，包括`Linly`，`Qwen`和`GeminiPro`的使用

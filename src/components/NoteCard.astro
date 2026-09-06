@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { formatDate, kindLabel } from '../lib/notes';
+import { excerpt, formatDate, kindLabel } from '../lib/notes';
 
 interface Props {
   note: CollectionEntry<'notes'>;
@@ -15,6 +15,6 @@ const updated = note.data.updated ?? note.data.date;
   <div>
     <span class="kind">{kindLabel(note.data.kind)}</span>
     <h3>{note.data.title}</h3>
-    {note.data.description && <p>{note.data.description}</p>}
+    {excerpt(note.data.description) && <p>{excerpt(note.data.description)}</p>}
   </div>
 </a>

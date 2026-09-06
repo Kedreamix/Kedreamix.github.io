@@ -1,6 +1,6 @@
 ---
 title: "SyncTalk实验笔记"
-description: "!synctalkhttps://picx.zhimg.com/v2-03605cd4fbd659c9d341840c64fd3b41.png"
+description: "SyncTalk 实验笔记：面部动画捕捉、头部稳定，以及把说话头各部分对齐的记录。"
 date: 2024-03-18
 updated: 2024-03-20
 kind: project
