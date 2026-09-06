@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import NoteCard from '../../components/NoteCard.astro';
+import { kinds } from '../../data/site';
+import { sortNotes } from '../../lib/notes';
+
+const notes = sortNotes(await getCollection('notes'));
+const filters = [{ id: 'all', label: '全部' }, ...Object.entries(kinds).map(([id, meta]) => ({ id, label: meta.label }))];
+---
+
+<Base title="笔记" description="按项目、论文、工程、Linux 和 CUDA 分开的实验笔记。" current="notes">
+  <main class="section wrap" style="padding-top: 2.6rem;">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Notes</p>
+        <h2>笔记</h2>
+      </div>
+      <span>{notes.length} 篇</span>
+    </div>
+    <div class="filters" role="tablist" aria-label="按类别筛选">
+      {filters.map((filter, index) => (
+        <button type="button" data-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>
+          {filter.label}
+        </button>
+      ))}
+    </div>
+    <div class="note-grid" id="note-list">
+      {notes.map((note) => <NoteCard note={note} />)}
+    </div>
+  </main>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const cards = document.querySelectorAll<HTMLElement>('#note-list .note-card');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const kind = button.dataset.filter ?? 'all';
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      cards.forEach((card) => {
+        card.hidden = kind !== 'all' && card.dataset.kind !== kind;
+      });
+    });
+  });
+</script>

@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import NoteCard from '../components/NoteCard.astro';
+import { featuredProjects, site } from '../data/site';
+import { sortNotes } from '../lib/notes';
+
+const notes = sortNotes(await getCollection('notes'));
+const latest = notes.slice(0, 8);
+---
+
+<Base current="home">
+  <main>
+    <section class="hero wrap">
+      <p class="kicker">{site.affiliation} · {site.role}</p>
+      <h1>把会说话的人，写成可以复查的笔记。</h1>
+      <p class="lead">
+        这里不是文章瀑布流。首页先放我正在做的数字人系统，后面才是论文阅读、训练部署和 Linux 上把实验跑起来的记录。
+      </p>
+      <div class="hero-meta">
+        <span>{site.name}</span>
+        <span>说话头合成 / 数字人 / 多模态</span>
+        <span>{notes.length} 篇在档笔记</span>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <h2>在做的系统</h2>
+        <a href="/projects/">全部项目</a>
+      </div>
+      <div class="project-grid">
+        {
+          featuredProjects.map((project) => (
+            <a class="card" href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noreferrer' : undefined}>
+              <div class="mark">{project.mark}</div>
+              <h3>{project.name}</h3>
+              <p>{project.summary}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <h2>最近改过的笔记</h2>
+        <a href="/notes/">按类别看</a>
+      </div>
+      <div class="note-grid">
+        {latest.map((note) => <NoteCard note={note} />)}
+      </div>
+    </section>
+  </main>
+</Base>

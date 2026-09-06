@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="关于" description="Kedreamix，深圳大学硕士在读，做数字人与说话头合成。" current="about">
+  <main class="section wrap" style="padding-top: 2.8rem;">
+    <p class="kicker">About</p>
+    <h2 style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); margin: 0.4rem 0 1.4rem;">
+      我把实验写下来，是为了以后还能把人喊回来。
+    </h2>
+    <div class="about-stack">
+      <img src="/img/avatar.png" alt="Kedreamix" />
+      <div>
+        <p>
+          我是 {site.name}，{site.affiliation}
+          {site.role}。方向是数字人、说话头合成和多模态交互：一张脸、一段声音，怎样变成能对上口型、还能聊下去的人。
+        </p>
+        <p>
+          这个站收的是实验室里真正会翻的东西——系统说明、论文笔记、CUDA / Linux
+          踩坑。它不再按发帖时间把所有文字摊成一页瀑布。
+        </p>
+        <p>
+          更完整的代码在
+          <a href={site.github}>GitHub</a>
+          。也可以在
+          <a href={site.zhihu}>知乎</a>
+          、
+          <a href={site.bilibili}>B 站</a>
+          或
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          找到我。
+        </p>
+      </div>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: 'home' | 'notes' | 'projects' | 'about';
+}
+
+const { title, description, current } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : site.title;
+const pageDescription = description ?? site.description;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap inner">
+        <a class="brand" href="/">
+          <strong>{site.name}</strong>
+          <span>数字人实验笔记</span>
+        </a>
+        <nav>
+          <a href="/" aria-current={current === 'home' ? 'page' : undefined}>首页</a>
+          <a href="/notes/" aria-current={current === 'notes' ? 'page' : undefined}>笔记</a>
+          <a href="/projects/" aria-current={current === 'projects' ? 'page' : undefined}>项目</a>
+          <a href="/about/" aria-current={current === 'about' ? 'page' : undefined}>关于</a>
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <div class="wrap inner">
+        <span>© {new Date().getFullYear()} {site.name} · {site.affiliation}</span>
+        <span>
+          <a href={site.github}>GitHub</a>
+          ·
+          <a href={site.zhihu}>知乎</a>
+          ·
+          <a href={`mailto:${site.email}`}>邮件</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

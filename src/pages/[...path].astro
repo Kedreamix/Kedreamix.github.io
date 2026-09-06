@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { formatDate, kindLabel, oldPathToParam, sortNotes } from '../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { path: oldPathToParam(note.data.oldPath) },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const all = sortNotes(await getCollection('notes'));
+const index = all.findIndex((item) => item.id === note.id);
+const prev = all[index + 1];
+const next = all[index - 1];
+---
+
+<Base title={note.data.title} description={note.data.description} current="notes">
+  <main class="paper-page">
+    <article class="sheet">
+      <header>
+        <span class="kind">{kindLabel(note.data.kind)}</span>
+        <h1>{note.data.title}</h1>
+        <p class="meta">
+          写于 {formatDate(note.data.date)}
+          {note.data.updated && ` · 更新于 ${formatDate(note.data.updated)}`}
+        </p>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+      <p class="meta" style="margin-top: 2.4rem;">
+        {prev && (
+          <>
+            更早：<a href={prev.data.oldPath}>{prev.data.title}</a>
+            {' · '}
+          </>
+        )}
+        {next && (
+          <>
+            更新：<a href={next.data.oldPath}>{next.data.title}</a>
+          </>
+        )}
+        {!prev && !next && <a href="/notes/">返回笔记</a>}
+      </p>
+    </article>
+  </main>
+</Base>

@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import NoteCard from '../../components/NoteCard.astro';
+import { featuredProjects } from '../../data/site';
+import { sortNotes } from '../../lib/notes';
+
+const projectNotes = sortNotes(await getCollection('notes', ({ data }) => data.kind === 'project'));
+---
+
+<Base title="项目" description="Kedreamix 的数字人与说话头相关项目。" current="projects">
+  <main>
+    <section class="hero wrap">
+      <p class="kicker">Projects</p>
+      <h1>先看系统，再看笔记。</h1>
+      <p class="lead">GitHub 上的代表作放在前面。下面是写过成篇说明的项目笔记，包括 Linly-Talker 和论文实验。</p>
+    </section>
+    <section class="section wrap">
+      <div class="project-grid">
+        {
+          featuredProjects.map((project) => (
+            <a class="card" href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noreferrer' : undefined}>
+              <div class="mark">{project.mark}</div>
+              <h3>{project.name}</h3>
+              <p>{project.summary}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+    <section class="section wrap">
+      <div class="section-head">
+        <h2>项目笔记</h2>
+      </div>
+      <div class="note-grid">
+        {projectNotes.map((note) => <NoteCard note={note} />)}
+      </div>
+    </section>
+  </main>
+</Base>

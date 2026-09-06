@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, kindLabel } from '../lib/notes';
+
+interface Props {
+  note: CollectionEntry<'notes'>;
+}
+
+const { note } = Astro.props;
+const updated = note.data.updated ?? note.data.date;
+---
+
+<a class="note-card" href={note.data.oldPath} data-kind={note.data.kind}>
+  <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+  <div>
+    <span class="kind">{kindLabel(note.data.kind)}</span>
+    <h3>{note.data.title}</h3>
+    {note.data.description && <p>{note.data.description}</p>}
+  </div>
+</a>
